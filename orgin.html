@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-Origin Request</title>
+    <script>
+        // Function to make the cross-origin request
+        function checkOrigin() {
+            fetch('https://f0b0-42-105-142-192.ngrok-free.app ', {
+                method: 'GET'
+            })
+            .then(response => response.text())  // Convert response to text
+            .then(data => {
+                document.getElementById('response').innerText = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Cross-Origin Request Example</h1>
+    <button onclick="checkOrigin()">Make Cross-Origin Request</button>
+    <p id="response"></p>
+</body>
+</html>
