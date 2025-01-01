@@ -43,6 +43,22 @@
             font-weight: bold;
         }
 
+        .telegram-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #ffffff;
+            background-color: #0088cc;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .telegram-button:hover {
+            background-color: #006699;
+        }
+
         @media (max-width: 480px) {
             .container {
                 padding: 15px;
@@ -55,6 +71,11 @@
             .container p {
                 font-size: 0.9rem;
             }
+
+            .telegram-button {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
         }
     </style>
 </head>
@@ -62,6 +83,7 @@
     <div class="container">
         <h1>Website Under Maintenance</h1>
         <p>We deeply regret to inform you that our website is currently unavailable as it has been <span class="highlight">compromised by attackers</span>. We are working tirelessly to secure our systems and restore normal operations. We value your patience and understanding during this time. Your safety and data security are our utmost priority.</p>
+        <a href="https://t.me/unique_mens_fx2" class="telegram-button">Contact Us on Telegram</a>
     </div>
 </body>
 </html>
