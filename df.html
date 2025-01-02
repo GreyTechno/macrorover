@@ -3,31 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fetch Flask API Data</title>
+    <title>Test Cross-Origin Request</title>
     <script>
-        async function fetchData() {
+        async function checkCallerSite() {
             try {
-                const response = await fetch('https://macrorover2.pythonanywhere.com/get_data', {
-                    method: 'GET'
+                const response = await fetch("https://macrorover2.pythonanywhere.com/check", {
+                    method: "GET",
+                    headers: {
+                        "Origin": "https://greytechno.github.io"
+                    }
                 });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                const result = await response.json();
+                if (response.ok) {
+                    document.getElementById("result").textContent = `Caller site is correct. IP Address: ${result.client_ip}`;
+                } else {
+                    document.getElementById("result").textContent = `Error: ${result.message}`;
                 }
-
-                const data = await response.json();
-                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
             } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('response').textContent = 'Failed to fetch data from the server.';
+                document.getElementById("result").textContent = `Error: ${error.message}`;
             }
         }
     </script>
 </head>
 <body>
-    <h1>Fetch Flask API Data</h1>
-    <button onclick="fetchData()">Fetch Data</button>
-    <h2>Response:</h2>
-    <pre id="response">No data yet...</pre>
+    <h1>Cross-Origin Test</h1>
+    <button onclick="checkCallerSite()">Check Caller Site</button>
+    <p id="result"></p>
 </body>
 </html>
