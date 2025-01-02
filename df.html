@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Cross-Origin Request</title>
+    <title>Caller Data Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        #data {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
     <script>
-        async function checkCallerSite() {
+        async function fetchCallerData() {
             try {
                 const response = await fetch("https://macrorover2.pythonanywhere.com/check", {
                     method: "GET",
@@ -13,22 +39,36 @@
                         "Origin": "https://greytechno.github.io"
                     }
                 });
-
-                const result = await response.json();
+                
+                const data = await response.json();
+                
+                // Display the returned data
+                const resultDiv = document.getElementById("data");
                 if (response.ok) {
-                    document.getElementById("result").textContent = `Caller site is correct. IP Address: ${result.client_ip}`;
+                    resultDiv.innerHTML = `
+                        <h3>Caller Data:</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
                 } else {
-                    document.getElementById("result").textContent = `Error: ${result.message}`;
+                    resultDiv.innerHTML = `
+                        <h3>Error:</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
                 }
             } catch (error) {
-                document.getElementById("result").textContent = `Error: ${error.message}`;
+                document.getElementById("data").innerHTML = `
+                    <h3>Error:</h3>
+                    <pre>${error.message}</pre>
+                `;
             }
         }
     </script>
 </head>
 <body>
-    <h1>Cross-Origin Test</h1>
-    <button onclick="checkCallerSite()">Check Caller Site</button>
-    <p id="result"></p>
+    <h1>View Caller Data</h1>
+    <p>Click the button below to retrieve data from the caller's request:</p>
+    <button onclick="fetchCallerData()">Fetch Caller Data</button>
+    
+    <div id="data"></div>
 </body>
 </html>
