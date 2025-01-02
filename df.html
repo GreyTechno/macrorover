@@ -3,32 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask API Test</title>
+    <title>Fetch Flask API Data</title>
     <script>
         async function fetchData() {
             try {
-                // Sending GET request with 'no-cors' mode
                 const response = await fetch('https://macrorover.pythonanywhere.com/get_data', {
-                    method: 'GET',
-                    mode: 'no-cors'
+                    method: 'GET'
                 });
 
-                // 'no-cors' restricts access to response data
-                document.getElementById('response').textContent = 
-                    "Request sent in 'no-cors' mode. Check server logs to confirm.";
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
             } catch (error) {
-                // Handle errors gracefully
                 console.error('Error:', error);
-                document.getElementById('response').textContent = 
-                    'Failed to send the request. Please check the console for details.';
+                document.getElementById('response').textContent = 'Failed to fetch data from the server.';
             }
         }
     </script>
 </head>
 <body>
-    <h1>Test Flask API</h1>
+    <h1>Fetch Flask API Data</h1>
     <button onclick="fetchData()">Fetch Data</button>
     <h2>Response:</h2>
-    <pre id="response">Click the button to fetch data...</pre>
+    <pre id="response">No data yet...</pre>
 </body>
 </html>
