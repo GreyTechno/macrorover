@@ -1,71 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caller Data Viewer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        #data {
-            margin-top: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-    </style>
-    <script>
-        async function fetchCallerData() {
-            try {
-                const response = await fetch("https://macrorover2.pythonanywhere.com/check", {
-                    method: "GET"
-                });
-                
-                const data = await response.json();
-                
-                // Display the returned data
-                const resultDiv = document.getElementById("data");
-                if (response.ok) {
-                    resultDiv.innerHTML = `
-                        <h3>Caller Data:</h3>
-                        <pre>${JSON.stringify(data, null, 2)}</pre>
-                    `;
-                } else {
-                    resultDiv.innerHTML = `
-                        <h3>Error:</h3>
-                        <pre>${JSON.stringify(data, null, 2)}</pre>
-                    `;
-                }
-            } catch (error) {
-                document.getElementById("data").innerHTML = `
-                    <h3>Error:</h3>
-                    <pre>${error.message}</pre>
-                `;
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netlify Environment Variable</title>
 </head>
 <body>
-    <h1>View Caller Data</h1>
-    <p>Click the button below to retrieve data from the caller's request:</p>
-    <button onclick="fetchCallerData()">Fetch Caller Data</button>
-    
-    <div id="data"></div>
+  <h1>Netlify Environment Variable</h1>
+  <div id="server-value"></div>
+
+  <script type="module">
+    // Access environment variable (requires a build step)
+    const mainServer = import.meta.env.VITE_MAIN_SERVER || 'Variable not found';
+    document.getElementById('server-value').textContent = `MAIN_SERVER: ${mainServer}`;
+  </script>
 </body>
 </html>
