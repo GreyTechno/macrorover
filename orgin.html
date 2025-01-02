@@ -9,8 +9,10 @@
             try {
                 const response = await fetch('https://macrorover.pythonanywhere.com/get_data', {
                     method: 'GET',
-                    headers: {}
                 });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
                 const data = await response.json();
                 alert(`Response: ${JSON.stringify(data, null, 2)}`);
             } catch (error) {
