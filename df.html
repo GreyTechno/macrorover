@@ -34,10 +34,7 @@
         async function fetchCallerData() {
             try {
                 const response = await fetch("https://macrorover2.pythonanywhere.com/check", {
-                    method: "GET",
-                    headers: {
-                        "Origin": "https://greytechno.github.io"
-                    }
+                    method: "GET"
                 });
                 
                 const data = await response.json();
